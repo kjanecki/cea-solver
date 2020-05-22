@@ -10,6 +10,10 @@ class NumericNetwork(
         return nodes[nodeId]
     }
 
+    override fun getNodes(): Collection<NumericIndividual> {
+        return nodes.values//To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getNeighbourhood(nodeId: Int): Neighbourhood<NumericIndividual>? {
         return neighbourhoods[nodeId]
     }

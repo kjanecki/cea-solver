@@ -21,13 +21,12 @@ fun main() {
     println("Stop")
 
 
-    val networkGenerator = SimpleWorldNetworkGenerator(RandomNeighbourhoodSelector(), 0.2, 4);
+    val networkGenerator = SimpleWorldNetworkGenerator(RandomNeighbourhoodSelector(), 0.2, 16);
     val network = networkGenerator.createNetwork()
     val ceaSolver = CeaSolverImpl(network)
 
     for (i in 1..100){
         ceaSolver.nextGeneration()
-        print(ceaSolver.getBestMatchedNode())
+        println("Generation $i: node ${ceaSolver.getBestMatchedNode()}, value ${ceaSolver.getCurrentValue()}")
     }
-
 }

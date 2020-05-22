@@ -11,13 +11,12 @@ class SimpleWorldNetworkGenerator(
     private val k : Int) : NetworkGenerator<NumericIndividual> {
 
     override fun createNetwork(): Network<NumericIndividual> {
-        val nodesNumber = Random.nextInt(100, 200);
+        val nodesNumber = Random.nextInt(1000, 2000);
         var nodeId = 0;
         val nodes = generateSequence { NumericIndividual(nodeId++, Random.nextDouble()) }
             .take(nodesNumber).toList()
         val nodesMap = nodes.map { node -> node.getId() to node }.toMap()
         var edgeMatrix = constructEdgeMatrix(nodesNumber)
-        printMatrix(edgeMatrix)
         val neighbourhoods = nodes
             .map { node -> node.getId() to neighbourhoodSelector.createNeighbourhood(edgeMatrix, nodesMap, node) }.toMap()
         return NumericNetwork(nodesMap, edgeMatrix , neighbourhoods)

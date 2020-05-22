@@ -1,6 +1,6 @@
 package sample.model
 
-class NumericIndividual(private val id: Int, val value: Double) : Individual {
+class NumericIndividual(private val id: Int, var value: Double) : Individual {
 
     override fun getId(): Int {
         return id

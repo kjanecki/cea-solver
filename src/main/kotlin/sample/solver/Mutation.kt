@@ -4,7 +4,9 @@ import sample.model.NumericIndividual
 import kotlin.random.Random
 
 class Mutation : Operator<NumericIndividual> {
+
     override fun execute(node: NumericIndividual): NumericIndividual {
-        return NumericIndividual(node.getId(), Random.nextDouble() * node.value)
+        node.value = Random.nextDouble(0.5, 1.5) * node.value
+        return node
     }
 }
