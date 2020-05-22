@@ -21,7 +21,7 @@ fun main() {
     println("Stop")
 
 
-    val networkGenerator = SimpleWorldNetworkGenerator(RandomNeighbourhoodSelector());
+    val networkGenerator = SimpleWorldNetworkGenerator(RandomNeighbourhoodSelector(), 0.2, 4);
     val network = networkGenerator.createNetwork()
     val ceaSolver = CeaSolverImpl(network)
 

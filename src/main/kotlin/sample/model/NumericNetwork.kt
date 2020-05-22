@@ -2,7 +2,7 @@ package sample.model
 
 class NumericNetwork(
     private val nodes: Map<Int, NumericIndividual>,
-    private val edges: List<Edge>,
+    private val edgeMatrix: Array<Array<Int>>,
     private val neighbourhoods: Map<Int, Neighbourhood<NumericIndividual>>
 ) : Network<NumericIndividual> {
 
