@@ -1,32 +1,18 @@
 package sample
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import sample.generator.RandomNeighbourhoodSelector
 import sample.generator.SimpleWorldNetworkGenerator
 import sample.solver.CeaSolverImpl
 
 fun main() {
 
-    println("Start")
-
-// Start a coroutine
-    GlobalScope.launch {
-        delay(1000)
-        println("Hello")
-    }
-
-    Thread.sleep(2000) // wait for 2 seconds
-    println("Stop")
-
-
     val networkGenerator = SimpleWorldNetworkGenerator(RandomNeighbourhoodSelector(), 0.2, 16);
     val network = networkGenerator.createNetwork()
     val ceaSolver = CeaSolverImpl(network)
 
     for (i in 1..100){
-        ceaSolver.nextGeneration()
+        runBlocking { ceaSolver.nextGeneration() }
         println("Generation $i: node ${ceaSolver.getBestMatchedNode()}, value ${ceaSolver.getCurrentValue()}")
     }
 }

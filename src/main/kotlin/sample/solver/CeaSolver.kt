@@ -5,7 +5,7 @@ import sample.model.Network
 
 interface CeaSolver<T : Individual> {
 
-    fun nextGeneration()
+    suspend fun nextGeneration()
 
     fun getCurrentState() : Network<T>
 

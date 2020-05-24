@@ -1,12 +1,15 @@
 package sample.solver
 
+import kotlinx.coroutines.delay
 import sample.model.Neighbourhood
 import sample.model.NumericIndividual
 import java.lang.Math.pow
+import kotlin.random.Random
 
 class SumOperator : NeighbourhoodOperator<NumericIndividual> {
 
-    override fun execute(neighbourhood: Neighbourhood<NumericIndividual>): AbstractResult {
+    override suspend fun execute(neighbourhood: Neighbourhood<NumericIndividual>): AbstractResult {
+        delay(Random.nextLong(1000, 3000))
         return NumericResult(neighbourhood.getNodes()
             .map { node -> fitness(node.getNumericValue())}
             .sum())

@@ -5,6 +5,6 @@ import sample.model.Neighbourhood
 
 interface NeighbourhoodOperator<T : Individual> {
 
-    fun execute(neighbourhood: Neighbourhood<T>) : AbstractResult
+    suspend fun execute(neighbourhood: Neighbourhood<T>) : AbstractResult
 
 }
