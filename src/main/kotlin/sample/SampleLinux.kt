@@ -12,7 +12,6 @@ fun main() {
     val network = networkGenerator.createNetwork()
     val ceaSolver = CeaSolverImpl(network)
 
-    //najlepszy wynik kiedykolwiek, w której iteracji i dla jakiego node'a
     var everBestIteration = 0
     var everBestNode : NumericIndividual = network.getNode(0) ?: error("Empty node list")
     var everBestValue : Double = Double.MIN_VALUE

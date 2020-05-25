@@ -5,7 +5,6 @@ import kotlin.random.Random
 
 class NumericOperator : Operator<NumericIndividual> {
 
-    //uzmiennienie zakresu mutacji
     private val lowerLimit = 0.5
     private val upperLimit = 1.5
 

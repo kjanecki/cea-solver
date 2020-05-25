@@ -1,6 +1,5 @@
 package sample.generator
 
-import sample.model.Edge
 import sample.model.NumericIndividual
 import sample.model.NumericNeighbourhood
 import kotlin.random.Random

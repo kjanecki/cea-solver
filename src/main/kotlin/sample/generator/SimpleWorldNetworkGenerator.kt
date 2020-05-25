@@ -10,7 +10,6 @@ class SimpleWorldNetworkGenerator(
     private val p : Double,
     private val k : Int) : NetworkGenerator<NumericIndividual> {
 
-    //przeniesienie wartości do zmiennych, żeby łatwiej móc je zmieniać
     private val minNodeCount = 1000
     private val maxNodeCount = 2000
     private val minStartValue = 0.0

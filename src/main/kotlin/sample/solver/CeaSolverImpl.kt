@@ -13,15 +13,12 @@ class CeaSolverImpl(val network: Network<NumericIndividual>) : CeaSolver<Numeric
     private var neighbourhoodOperator : NeighbourhoodOperator<NumericIndividual> = NumericNeighbourhoodOperator()
     private var operator : Operator<NumericIndividual> = NumericOperator()
     private var bestNode : NumericIndividual = network.getNode(0) ?: error("Empty node list")
-    //bestValue jako wynik dopasowania czyli double
     var bestValue : Double = (Double.MIN_VALUE)
     private val mutex = Mutex()
 
-    //przypisanie szansy mutacji do zmiennej żeby łatwiej modyfikować
     private val mutationChance = 0.25
 
     override suspend fun nextGeneration() {
-        //zmiana żeby bestNode i bestValue przedstawiało najlepszy wynik w generacji
         bestNode = network.getNode(0) ?: error("Empty node list")
         bestValue = Double.MIN_VALUE
 
@@ -39,15 +36,13 @@ class CeaSolverImpl(val network: Network<NumericIndividual>) : CeaSolver<Numeric
     }
 
     private suspend fun evolveIfNeeded(node : NumericIndividual) {
-        //result używany do sprawdzenia czy to najlepsze sąsiedztwo, ale również czy ewoulować osobnika
         var result : Double
-        //czasem sąsiedztwo okazuje się puste (czy powinna być taka możliwość?)
         if(network.getNeighbourhood(node.getId())!!.getNodes().isEmpty()){
             result = operator.fitness(node)
         }
         else {
             result = neighbourhoodOperator.neighbourhoodFitness(network.getNeighbourhood(node.getId()) ?: error("ERROR"),operator)
-            //jeżeli średnie dopasowanie w sąsiedztwie lepsze niż pojedyńczego osobinka, to ewolucja
+
             var mean = neighbourhoodOperator.neighbourhoodMean(network.getNeighbourhood((node.getId())) ?: error("ERROR"))
             if(!(mean as NumericResult).result.isNaN()) {
                 node.setNumericValue(mean.result)

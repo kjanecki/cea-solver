@@ -9,7 +9,6 @@ class NumericIndividual(private val id: Int, private var value: Double) : Indivi
     fun getNumericValue(): Double {
         return value
     }
-    //dodany setter i zmiana 'value' na prywatną
     fun setNumericValue(newValue: Double){
         value = newValue
     }
