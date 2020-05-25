@@ -10,10 +10,16 @@ class SimpleWorldNetworkGenerator(
     private val p : Double,
     private val k : Int) : NetworkGenerator<NumericIndividual> {
 
+    //przeniesienie wartości do zmiennych, żeby łatwiej móc je zmieniać
+    private val minNodeCount = 1000
+    private val maxNodeCount = 2000
+    private val minStartValue = 0.0
+    private val maxStartValue = 1.0
+
     override fun createNetwork(): Network<NumericIndividual> {
-        val nodesNumber = Random.nextInt(1000, 2000);
+        val nodesNumber = Random.nextInt(minNodeCount, maxNodeCount);
         var nodeId = 0;
-        val nodes = generateSequence { NumericIndividual(nodeId++, Random.nextDouble()) }
+        val nodes = generateSequence { NumericIndividual(nodeId++, Random.nextDouble(minStartValue,maxStartValue)) }
             .take(nodesNumber).toList()
         val nodesMap = nodes.map { node -> node.getId() to node }.toMap()
         var edgeMatrix = constructEdgeMatrix(nodesNumber)
