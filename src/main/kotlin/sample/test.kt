@@ -3,7 +3,7 @@ package sample
 import kotlin.random.Random
 
 fun main() {
-    val matrix = constructEdgeMatrix(10, 2, 0.2);
+    val matrix = constructEdgeMatrix(1000, 10);
     val dim = matrix.size - 1
     for (i in 0..dim) {
         for (j in 0..dim) {
@@ -70,4 +70,55 @@ private fun constructEdgeMatrix(n : Int, k : Int, p : Double) : Array<Array<Int>
         }
     }
     return matrix;
+}
+
+private fun constructEdgeMatrix(n : Int, m : Int) : Array<Array<Int>> {
+    var matrix = zeros(n);
+    var totalDegree = 0
+    var degreeMap : MutableMap<Int,Int> = mutableMapOf()
+    for (i in 0 until m-1) {
+        val j = i + 1
+        createEdge(matrix, i, j)
+        updateDegree(degreeMap, i)
+        updateDegree(degreeMap, j)
+        totalDegree += 2
+    }
+
+    val dim = matrix.size-1
+    for (i in m..dim) {
+        degreeMap[i] = 0
+        for (j in 0 until i) {
+            val k = degreeMap[j]!!
+            val p = k.toDouble() / totalDegree
+            if (Random.nextDouble() < p) {
+                createEdge(matrix, i, j)
+                degreeMap[i] = degreeMap[i]!! + 1
+                degreeMap[j] = degreeMap[j]!! + 1
+                totalDegree += 2
+            }
+        }
+    }
+    return matrix;
+}
+
+private fun updateDegree(degreeMap: MutableMap<Int, Int>, i: Int) {
+    if (!degreeMap.containsKey(i)) {
+        degreeMap[i] = 0
+    }
+    degreeMap[i] = degreeMap[i]!! + 1
+}
+
+private fun createEdge(matrix: Array<Array<Int>>, i: Int, j: Int) {
+    matrix[i][j] = 1
+    matrix[j][i] = 1
+}
+
+private fun printMatrix(matrix: Array<Array<Int>>) {
+    for (i in 0 until matrix.size) {
+        for (j in 0 until matrix.size) {
+            print(matrix[i][j])
+            print(" ")
+        }
+        println()
+    }
 }

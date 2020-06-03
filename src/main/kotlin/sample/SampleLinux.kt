@@ -1,6 +1,7 @@
 package sample
 
 import kotlinx.coroutines.runBlocking
+import sample.generator.DistanceThresholdNeighbourhoodSelector
 import sample.generator.RandomNeighbourhoodSelector
 import sample.generator.SimpleWorldNetworkGenerator
 import sample.model.NumericIndividual
@@ -8,7 +9,7 @@ import sample.solver.CeaSolverImpl
 
 fun main() {
 
-    val networkGenerator = SimpleWorldNetworkGenerator(RandomNeighbourhoodSelector(), 0.2, 16);
+    val networkGenerator = SimpleWorldNetworkGenerator(DistanceThresholdNeighbourhoodSelector(2), 0.2, 16);
     val network = networkGenerator.createNetwork()
     val ceaSolver = CeaSolverImpl(network)
 
