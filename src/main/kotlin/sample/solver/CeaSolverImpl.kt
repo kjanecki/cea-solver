@@ -8,10 +8,11 @@ import sample.model.Network
 import sample.model.NumericIndividual
 import kotlin.random.Random
 
-class CeaSolverImpl(val network: Network<NumericIndividual>) : CeaSolver<NumericIndividual> {
+class CeaSolverImpl(network: Network<NumericIndividual>,
+                    neighbourhoodOperator: NeighbourhoodOperator<NumericIndividual>,
+                    operator: Operator<NumericIndividual>)
+    : CeaSolver<NumericIndividual>(network, neighbourhoodOperator, operator) {
 
-    private var neighbourhoodOperator : NeighbourhoodOperator<NumericIndividual> = NumericNeighbourhoodOperator()
-    private var operator : Operator<NumericIndividual> = NumericOperator()
     private var bestNode : NumericIndividual = network.getNode(0) ?: error("Empty node list")
     var bestValue : Double = (Double.MIN_VALUE)
     private val mutex = Mutex()
@@ -69,7 +70,7 @@ class CeaSolverImpl(val network: Network<NumericIndividual>) : CeaSolver<Numeric
         return listOf(bestNode)
     }
 
-    fun getCurrentValue() : Double {
+    override fun getCurrentValue() : Double {
         return bestValue
     }
 }

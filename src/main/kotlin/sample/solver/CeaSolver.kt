@@ -2,14 +2,20 @@ package sample.solver
 
 import sample.model.Individual
 import sample.model.Network
+import sample.model.NumericIndividual
 
-interface CeaSolver<T : Individual> {
+abstract class CeaSolver<T : Individual>(protected val network: Network<NumericIndividual>,
+                                         protected var neighbourhoodOperator: NeighbourhoodOperator<NumericIndividual>,
+                                         protected var operator: Operator<NumericIndividual>
+) {
 
-    suspend fun nextGeneration()
+    abstract suspend fun nextGeneration()
 
-    fun getCurrentState() : Network<T>
+    abstract fun getCurrentState() : Network<T>
 
-    fun getBestMatchedNode() : T
+    abstract fun getBestMatchedNode() : T
 
-    fun getBestMatchedNodes(count : Int) : List<T>
+    abstract fun getBestMatchedNodes(count : Int) : List<T>
+
+    abstract fun getCurrentValue() : Double
 }
