@@ -8,12 +8,12 @@ import kotlin.random.Random
 class SimpleWorldNetworkGenerator(
     private val neighbourhoodSelector: NeighbourhoodSelector<NumericIndividual>,
     private val p : Double,
-    private val k : Int) : NetworkGenerator<NumericIndividual> {
-
-    private val minNodeCount = 1000
-    private val maxNodeCount = 2000
-    private val minStartValue = 0.0
-    private val maxStartValue = 1.0
+    private val k : Int,
+    private val minNodeCount: Int = 1000,
+    private val maxNodeCount: Int = 2000,
+    private val minStartValue: Double = 0.0,
+    private val maxStartValue: Double = 1.0
+) : NetworkGenerator<NumericIndividual> {
 
     override fun createNetwork(): Network<NumericIndividual> {
         val nodesNumber = Random.nextInt(minNodeCount, maxNodeCount);
