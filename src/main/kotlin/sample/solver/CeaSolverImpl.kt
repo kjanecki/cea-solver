@@ -1,5 +1,6 @@
 package sample.solver
 
+import javafx.beans.binding.DoubleExpression
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.sync.Mutex
@@ -14,6 +15,7 @@ class CeaSolverImpl(network: Network<NumericIndividual>,
     : CeaSolver<NumericIndividual>(network, neighbourhoodOperator, operator) {
 
     private var bestNode : NumericIndividual = network.getNode(0) ?: error("Empty node list")
+    private var bestArg : Double = network.getNode(0)?.getNumericValue() ?: error("Empty node list")
     var bestValue : Double = (Double.MIN_VALUE)
     private val mutex = Mutex()
 
@@ -38,20 +40,22 @@ class CeaSolverImpl(network: Network<NumericIndividual>,
 
     private suspend fun evolveIfNeeded(node : NumericIndividual) {
         var result : Double
+        var arg : Double
         if(network.getNeighbourhood(node.getId())!!.getNodes().isEmpty()){
+            arg = node.getNumericValue()
             result = operator.fitness(node)
         }
         else {
             result = neighbourhoodOperator.neighbourhoodFitness(network.getNeighbourhood(node.getId()) ?: error("ERROR"),operator)
 
             var mean = neighbourhoodOperator.neighbourhoodMean(network.getNeighbourhood((node.getId())) ?: error("ERROR"))
-            if(!(mean as NumericResult).result.isNaN()) {
-                node.setNumericValue(mean.result)
-            }
+            arg = (mean as NumericResult).result
+            node.setNumericValue(arg)
         }
         mutex.withLock {
             if(result.compareTo(bestValue) > 0){
                 bestNode = node
+                bestArg = arg
                 bestValue = result
             }
         }
@@ -68,6 +72,10 @@ class CeaSolverImpl(network: Network<NumericIndividual>,
 
     override fun getBestMatchedNodes(count: Int): List<NumericIndividual> {
         return listOf(bestNode)
+    }
+
+    override fun getCurrentArg() : Double {
+        return bestArg
     }
 
     override fun getCurrentValue() : Double {

@@ -14,7 +14,7 @@ class NumericOperator : Operator<NumericIndividual> {
     }
 
     override fun fitness(node: NumericIndividual): Double{
-        val x = node.getNumericValue()
+        val x = node.getNumericValue()//x ~ 3.6, y ~ 138
         return ((-1) * Math.pow(x, 4.0)) + Math.pow(x, 3.0) + (20 * Math.pow(x, 2.0))
     }
 }
