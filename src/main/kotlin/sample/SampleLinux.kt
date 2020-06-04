@@ -57,8 +57,8 @@ private fun writeResultsToCsv(dataArg: MutableList<String>, dataValue: MutableLi
     try {
         fileWriter = FileWriter("test.csv")
         fileWriter.append("generation_id,arg,value\n");
-        for ((i, value) in dataArg.withIndex()) {
-            fileWriter.append("${i+1},${dataValue[i]},$value\n");
+        for ((i, value) in dataValue.withIndex()) {
+            fileWriter.append("${i+1},${dataArg[i]},$value\n");
         }
 
     } catch (e: Exception) {
