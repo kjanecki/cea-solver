@@ -5,8 +5,8 @@ import kotlin.random.Random
 
 class NumericOperator2 : Operator<NumericIndividual> {
 
-    private val lowerLimit = -1.0
-    private val upperLimit = 1.0
+    private val lowerLimit = -0.5
+    private val upperLimit = 0.5
 
     override fun mutation(node: NumericIndividual): NumericIndividual {
         node.setNumericValue(Random.nextDouble(lowerLimit, upperLimit) + node.getNumericValue())
@@ -15,6 +15,7 @@ class NumericOperator2 : Operator<NumericIndividual> {
 
     override fun fitness(node: NumericIndividual): Double{
         val x = node.getNumericValue()//x ~ 2.4, y ~ 40
-        return ((-1) * Math.pow(x, 6.0)) + (10 * Math.pow(x, 4.0)) + Math.pow(x,3.0) - (20 * Math.pow(x, 2.0))
+        return ((-1) * Math.pow(x, 4.0)) + Math.pow(x, 3.0) + (20 * Math.pow(x, 2.0))
+        //return ((-1) * Math.pow(x, 6.0)) + (10 * Math.pow(x, 4.0)) + Math.pow(x,3.0) - (20 * Math.pow(x, 2.0))
     }
 }

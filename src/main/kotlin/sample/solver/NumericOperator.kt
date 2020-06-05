@@ -5,8 +5,8 @@ import kotlin.random.Random
 
 class NumericOperator : Operator<NumericIndividual> {
 
-    private val lowerLimit = 0.5
-    private val upperLimit = 1.5
+    private val lowerLimit = 0.75
+    private val upperLimit = 1.25
 
     override fun mutation(node: NumericIndividual): NumericIndividual {
         node.setNumericValue(Random.nextDouble(lowerLimit, upperLimit) * node.getNumericValue())
