@@ -30,27 +30,24 @@ class ScaleFreeNetworkGenerator(
         var matrix = zeros(n);
         var totalDegree = 0
         var degreeMap : MutableMap<Int,Int> = mutableMapOf()
-        for (i in 0 until m) {
-            for (j in 0 until m) {
-                if(i != j) {
-                    createEdge(matrix, i, j)
-                    updateDegree(degreeMap, i)
-                    updateDegree(degreeMap, j)
-                    totalDegree += 2
-                }
-            }
+        for (i in 0 until m-1) {
+            val j = i + 1
+            createEdge(matrix, i, j)
+            updateDegree(degreeMap, i)
+            updateDegree(degreeMap, j)
+            totalDegree += 2
         }
 
         val dim = matrix.size-1
         for (i in m..dim) {
             degreeMap[i] = 0
             for (j in 0 until i) {
-                val k = degreeMap[i]!!
-                val p = k / totalDegree
+                val k = degreeMap[j]!!
+                val p = k.toDouble() / totalDegree
                 if (Random.nextDouble() < p) {
                     createEdge(matrix, i, j)
-                    updateDegree(degreeMap, i)
-                    updateDegree(degreeMap, j)
+                    degreeMap[i] = degreeMap[i]!! + 1
+                    degreeMap[j] = degreeMap[j]!! + 1
                     totalDegree += 2
                 }
             }
