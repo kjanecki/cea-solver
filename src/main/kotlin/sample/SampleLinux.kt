@@ -1,18 +1,14 @@
 package sample
 
 import kotlinx.coroutines.runBlocking
-import sample.config.SimpleWorldRandomNeighbourhoodConfig
-import sample.generator.DistanceThresholdNeighbourhoodSelector
-import sample.generator.RandomNeighbourhoodSelector
-import sample.generator.SimpleWorldNetworkGenerator
+import sample.config.ScaleFreeNearestNeighbourhoodConfig
 import sample.model.NumericIndividual
-import sample.solver.CeaSolverImpl
 import java.io.FileWriter
 import java.io.IOException
 
 fun main() {
 
-    val config = SimpleWorldRandomNeighbourhoodConfig()
+    val config = ScaleFreeNearestNeighbourhoodConfig()
 
     val operator = config.getOperator()
     val neighbourhoodOperator = config.getNeighbourhoodOperator()
