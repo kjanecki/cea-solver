@@ -43,6 +43,7 @@ class ScaleFreeNetworkGenerator(
 
         val dim = matrix.size-1
         for (i in m..dim) {
+            degreeMap[i] = 0
             for (j in 0 until i) {
                 val k = degreeMap[i]!!
                 val p = k / totalDegree
