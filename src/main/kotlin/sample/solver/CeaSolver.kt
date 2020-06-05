@@ -17,5 +17,7 @@ abstract class CeaSolver<T : Individual>(protected val network: Network<NumericI
 
     abstract fun getBestMatchedNodes(count : Int) : List<T>
 
+    abstract fun getCurrentArg() : Double
+
     abstract fun getCurrentValue() : Double
 }
